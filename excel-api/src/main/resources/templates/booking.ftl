@@ -5,7 +5,7 @@
     <script src="https://how2j.cn/study/js/jquery/2.0.0/jquery.min.js"></script>
     <link href="https://how2j.cn/study/css/bootstrap/3.3.6/bootstrap.min.css" rel="stylesheet">
     <script src="https://how2j.cn/study/js/bootstrap/3.3.6/bootstrap.min.js"></script>
-    <title>freemarker遍历list</title>
+    <title>Booking遍历list</title>
 </head>
 
 <body>
@@ -13,22 +13,26 @@
     <table class="table table-striped table-bordered table-hover  table-condensed">
         <thead>
         <td>ID</td>
-        <td>用户名</td>
-        <td>密码</td>
+        <td>hawb</td>
+        <td>shipper</td>
+        <td>consignee</td>
+        <td>notify party</td>
         </thead>
         <tbody>
-        <#list user as u>
+        <#list booking as b>
 
             <tr class="success">
-                <td>${u.uid}</td>
-                <td>${u.username}</td>
-                <td>${u.password}</td>
+                <td>${b.bid}</td>
+                <td>${b.hawb_no}</td>
+                <td>${b.shipper_name}</td>
+                <td>${b.consignee_name}</td>
+                <td>${b.notify_party}</td>
             </tr>
         </#list>
         </tbody>
     </table>
-    <a href="/export"><button type="button" class="btn btn-primary">导出</button></a>
-    <form class="form-horizontal" id="form_table" action="/import" enctype="multipart/form-data" method="post">
+    <a href="/exportbooking"><button type="button" class="btn btn-primary">导出</button></a>
+    <form class="form-horizontal" id="form_table" action="/booking" enctype="multipart/form-data" method="post">
         <br/>
         <br/>
         <button type="submit" class="btn btn-primary">导入</button>

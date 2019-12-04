@@ -1,9 +1,13 @@
 package com.benjamin.excel.controller;
 
 
+import com.benjamin.excel.pojo.Booking;
 import com.benjamin.excel.pojo.User;
+import com.benjamin.excel.service.BookingService;
 import com.benjamin.excel.service.UserService;
-import org.apache.poi.hssf.usermodel.*;
+import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.util.CellRangeAddress;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
@@ -22,24 +25,24 @@ import java.util.List;
 
 
 @Controller
-public class IndexController {
+public class BookingController {
 
     @Autowired
-    private UserService userService;
+    private BookingService bookingService;
 
 
-    @RequestMapping("/index")
-    public String showUser(Model model) {
-        List<User> users = userService.selectUsers();
-        model.addAttribute("user", users);
-        return "index";
+    @RequestMapping("/book")
+    public String showBookings(Model model) {
+        List<Booking> bookings = bookingService.selectBookings();
+        model.addAttribute("booking", bookings);
+        return "booking";
     }
 
 
-    @RequestMapping(value = "/export")
+    @RequestMapping(value = "/exportbooking")
     @ResponseBody
     public void export(HttpServletResponse response) throws IOException {
-        List<User> users = userService.selectUsers();
+        List<Booking> bookings = bookingService.selectBookings();
 
         HSSFWorkbook wb = new HSSFWorkbook();
 
@@ -72,16 +75,21 @@ public class IndexController {
          * */
         row = sheet.createRow(1);
         row.setHeight((short) (22.50 * 20));//设置行高
-        row.createCell(0).setCellValue("用户Id");//为第一个单元格设值
-        row.createCell(1).setCellValue("用户名");//为第二个单元格设值
-        row.createCell(2).setCellValue("用户密码");//为第三个单元格设值
+        row.createCell(0).setCellValue("Booking Id");//为第一个单元格设值
+        row.createCell(1).setCellValue("hawbno");//为第二个单元格设值
+        row.createCell(2).setCellValue("shipper");//为第三个单元格设值
+        row.createCell(3).setCellValue("consignee");//为第三个单元格设值
+        row.createCell(4).setCellValue("notifyparty");//为第三个单元格设值
 
-        for (int i = 0; i < users.size(); i++) {
+
+        for (int i = 0; i < bookings.size(); i++) {
             row = sheet.createRow(i + 2);
-            User user = users.get(i);
-            row.createCell(0).setCellValue(user.getUid());
-            row.createCell(1).setCellValue(user.getUsername());
-            row.createCell(2).setCellValue(user.getPassword());
+            Booking booking = bookings.get(i);
+            row.createCell(0).setCellValue(booking.getBid());
+            row.createCell(1).setCellValue(booking.getHawb_no());
+            row.createCell(2).setCellValue(booking.getShipper_name());
+            row.createCell(3).setCellValue(booking.getConsignee_name());
+            row.createCell(4).setCellValue(booking.getNotify_party());
         }
         sheet.setDefaultRowHeight((short) (16.5 * 20));
         //列宽自适应
@@ -90,20 +98,20 @@ public class IndexController {
         }
         response.setContentType("application/vnd.ms-excel;charset=utf-8");
         OutputStream os = response.getOutputStream();
-        response.setHeader("Content-disposition", "attachment;filename=user.xls");//默认Excel名称
+        response.setHeader("Content-disposition", "attachment;filename=booking.xls");//默认Excel名称
         wb.write(os);
         os.flush();
         os.close();
     }
-    @RequestMapping(value = "/import")
+    @RequestMapping(value = "/booking")
     public String exImport(@RequestParam(value = "filename")MultipartFile file, HttpSession session) {
         boolean a = false;
         String fileName = file.getOriginalFilename();
         try {
-            a = userService.batchImport(fileName, file);
+            a = bookingService.batchImportBooking(fileName, file);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return "redirect:index";
+        return "redirect:book";
     }
 }
