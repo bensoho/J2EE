@@ -38,4 +38,9 @@ public class HelloController {
     public String chart(Model model){
         return "chart";
     }
+
+    @RequestMapping("/upload")
+    public String uploadBooking(){
+        return "upload";
+    }
 }

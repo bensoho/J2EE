@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.benjamin.charjs_demo.repository.dao.UserMapper">
+
+  <insert id="addUser" parameterType="com.benjamin.charjs_demo.entity.model.User" >
+      insert into user(username,password) values(#{username},#{password})
+  </insert>
+  <select id="selectUser" resultType="java.lang.Integer">
+      select count(*) from user where username=#{username}
+  </select>
+  <update id="updateUser" parameterType="com.benjamin.charjs_demo.entity.model.User" >
+      update user set password = #{password} where username = #{username}
+  </update>
+
+</mapper>
