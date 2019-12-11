@@ -11,7 +11,7 @@
   </resultMap>
 
   <sql id="column_List">
-        bid,hawb_no,shipper_name,consignee_name,notify_party
+        bid,hawb_no,shipper_name,consignee_name,notify_party,shipper_gci,consignee_gci
     </sql>
 
   <select id="selectBookings" resultMap="BaseResultMap">
@@ -21,11 +21,11 @@
   </select>
 
   <update id="updateBookingByHawbNo" parameterType="com.benjamin.excel.pojo.Booking">
-      update db_booking set shipper_name=#{shipper_name}, consignee_name=#{consignee_name}, notify_party=#{notify_party} where hawb_no = #{hawb_no}
+      update db_booking set shipper_name=#{shipper_name}, consignee_name=#{consignee_name}, notify_party=#{notify_party}, shipper_gci=#{shipper_gci}, consignee_gci=#{consignee_gci} where hawb_no = #{hawb_no}
     </update>
 
   <insert id="addBooking" parameterType="com.benjamin.excel.pojo.Booking">
-        INSERT INTO db_booking (hawb_no,shipper_name,consignee_name,notify_party) VALUES (#{hawb_no},#{shipper_name},#{consignee_name},#{notify_party})
+        INSERT INTO db_booking (hawb_no,shipper_name,consignee_name,notify_party,shipper_gci,consignee_gci) VALUES (#{hawb_no},#{shipper_name},#{consignee_name},#{notify_party},#{shipper_gci},#{consignee_gci})
     </insert>
 
   <select id="selectByHawbNo" resultType="Integer">

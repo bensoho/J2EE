@@ -6,6 +6,24 @@ public class Booking {
     private String shipper_name;
     private String consignee_name;
     private String notify_party;
+    private String shipper_gci;
+    private String consignee_gci;
+
+    public String getShipper_gci() {
+        return shipper_gci;
+    }
+
+    public void setShipper_gci(String shipper_gci) {
+        this.shipper_gci = shipper_gci;
+    }
+
+    public String getConsignee_gci() {
+        return consignee_gci;
+    }
+
+    public void setConsignee_gci(String consignee_gci) {
+        this.consignee_gci = consignee_gci;
+    }
 
     public int getBid() {
         return bid;

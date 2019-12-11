@@ -4,6 +4,7 @@ import com.benjamin.excel.exception.MyException;
 import com.benjamin.excel.mapper.BookingMapper;
 import com.benjamin.excel.mapper.UserMapper;
 import com.benjamin.excel.pojo.Booking;
+import com.benjamin.excel.pojo.EsClientInfo;
 import com.benjamin.excel.pojo.User;
 import com.benjamin.excel.service.BookingService;
 import com.benjamin.excel.service.UserService;
@@ -14,13 +15,20 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.elasticsearch.core.ElasticsearchOperations;
+import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
+import org.springframework.data.elasticsearch.core.query.SearchQuery;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+
+import static org.elasticsearch.index.query.QueryBuilders.queryStringQuery;
 
 @Service
 public class BookingServiceImpl implements BookingService {
@@ -28,8 +36,8 @@ public class BookingServiceImpl implements BookingService {
 
     @Autowired
     private BookingMapper bookingMapper;
-
-
+    @Autowired
+    ElasticsearchOperations elasticsearchTemplate;
 
 
     @Override
@@ -45,14 +53,10 @@ public class BookingServiceImpl implements BookingService {
         boolean notNull = false;
         List<Booking> bookingList = new ArrayList<>();
 
-        System.out.println("fileName:"+fileName);
+        System.out.println("FileName: "+fileName);
         if (!fileName.matches("^.+\\.(?i)(xls)$") && !fileName.matches("^.+\\.(?i)(xlsx)$")) {
             throw new MyException("上传文件格式不正确");
         }
-
-
-
-
 
         boolean isExcel2003 = true;
         if (fileName.matches("^.+\\.(?i)(xlsx)$")) {
@@ -85,7 +89,7 @@ public class BookingServiceImpl implements BookingService {
             row3.getCell(1).setCellType(Cell.CELL_TYPE_STRING);//得到每一行的 第二个单元格的值
             String hawb_no = row3.getCell(1).getStringCellValue();
 
-        System.out.println("hawb: "+hawb_no);
+            //System.out.println("hawb: "+hawb_no);
             if(hawb_no==null || hawb_no.isEmpty()){
                 throw new MyException("导入失败(第"+(2)+"行, hawb_no未填写)");
             }
@@ -116,23 +120,46 @@ public class BookingServiceImpl implements BookingService {
             booking.setNotify_party(notify_party);
 
 
-            bookingList.add(booking);
+            //System.out.println("网页传过来的参数："+shipper_name);
+            booking.setShipper_gci(getGCI(shipper_name));
+            booking.setConsignee_gci(getGCI(consignee_name));
+
+        //System.out.println("ssss:"+getGCI(shipper_name));
+
+        bookingList.add(booking);
 
 
 
 
-        for (Booking bookingResord : bookingList) {
-            String hawbno = bookingResord.getHawb_no();
+        for (Booking bookingRecord : bookingList) {
+            String hawbno = bookingRecord.getHawb_no();
             int cnt = bookingMapper.selectByHawbNo(hawbno);
             if (cnt == 0) {
-                bookingMapper.addBooking(bookingResord);
-                System.out.println(" 插入 "+bookingResord);
+                bookingMapper.addBooking(bookingRecord);
+                System.out.println("插入: "+bookingRecord.getHawb_no());
             } else {
-                bookingMapper.updateBookingByHawbNo(bookingResord);
-                System.out.println(" 更新 "+bookingResord);
+                bookingMapper.updateBookingByHawbNo(bookingRecord);
+                System.out.println("更新: "+bookingRecord.getHawb_no());
             }
         }
         return notNull;
+    }
+
+    public String getGCI(String name){
+
+        String company_id=null;
+        SearchQuery searchQuery = new NativeSearchQueryBuilder()
+                .withQuery(queryStringQuery(name))
+                .build();
+        List<EsClientInfo>list = elasticsearchTemplate.queryForList(searchQuery, EsClientInfo.class);
+        for (EsClientInfo es:list){
+            company_id = es.getCompany_id();
+
+            //System.out.println(company_id);
+            break;
+
+        }
+        return company_id;
     }
 
 

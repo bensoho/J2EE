@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+    <title>E-BOOKING</title>
+
+
+</head>
+
+<body>
+<div class="container">
+    <table class="table table-bordered table-sm" style="font-size: smaller">
+
+        <tr>
+            <td width="20px" colspan="5">空运货物托运书 Air Consignment Instructions</td>
+            <td rowspan="10" colspan="4">
+                北京康捷空国际货运代理有限公司深圳分公司
+                深圳市罗湖区沿河北路1002号瑞思大厦A座31楼全层
+                电话:0755-2583 8000	传真:0755-2588 1097
+                EXPEDITORS SHENZHEN
+                (BEIJING KANGJIE KONG INTERNATIONAL
+                CARGO AGENT CO., LTD.SHENZHEN BRANCH)
+                F31, Block A, Reith Building, No.1002 Yanhe North Road
+                Luohu District, Shenzhen City, PRC. 518003
+                TEL:0755-25838000	FAX:0755-25830896
+
+            </td>
+
+        </tr>
+
+        <!--托运人名称及地址/Shipper's Name And Address-->
+        <tr>
+            <td colspan="5">托运人名称及地址/Shipper's Name And Address</td>
+
+
+        </tr>
+        <tr>
+            <td>统一社会信用代码 Tax No.:</td>
+            <td colspan="4"><input type="text" name="shpr_tax_id"></td>
+
+        </tr>
+
+        <tr>
+            <td>公司名称 Company Name：</td>
+            <td colspan="4"><input type="text" name="shpr_name"></td>
+
+        </tr>
+        <tr>
+            <td>Street Address:</td>
+            <td colspan="4"><input type="text" name="shpr_address1"></td>
+
+        </tr>
+        <tr>
+            <td>Other Address</td>
+            <td colspan="4"><input type="text" name="shpr_address2"></td>
+
+        </tr>
+        <tr>
+            <td>邮编Zip</td>
+            <td colspan="4"><input type="text" name="shpr_zip"></td>
+
+        </tr>
+        <tr>
+            <td>城市City:</td>
+            <td colspan="4"><input type="text" name="shpr_city"></td>
+
+        </tr>
+        <tr>
+            <td >国家Country:</td>
+            <td colspan="4"><input type="text" name="shpr_country"></td>
+
+        </tr>
+        <tr>
+            <td>联系人电话</td>
+            <td colspan="2"><input type="text" name="shpr_tel"></td>
+            <td>联系人</td>
+            <td><input type="text" name="shpr_contact"></td>
+        </tr>
+
+
+        <!--收货人名称及地址/Consignee's Name And Address-->
+        <tr>
+            <td colspan="5">收货人名称及地址/Consignee's Name And Address</td>
+            <td rowspan="6" colspan="4">BY AIR</td>
+        </tr>
+        <tr>
+            <td>收货方Tax No.或 IRS No.:</td>
+            <td colspan="4"><input type="text" name="cnee_tax_id"></td>
+        </tr>
+
+        <tr>
+            <td>公司名称 Company Name：</td>
+            <td colspan="4"><input type="text" name="cnee_name"></td>
+        </tr>
+        <tr>
+            <td>Street Address:</td>
+            <td colspan="4"><input type="text" name="cnee_address1"></td>
+        </tr>
+        <tr>
+            <td>Other Address</td>
+            <td colspan="4"><input type="text" name="cnee_address2"></td>
+        </tr>
+        <tr>
+            <td>邮编Zip</td>
+            <td colspan="4"><input type="text" name="cnee_zip"></td>
+        </tr>
+        <tr>
+            <td>城市City:</td>
+            <td colspan="4"><input type="text" name="cnee_city"></td>
+            <td rowspan="3" colspan="1">
+
+                INSURANCE TO BE COVERED
+                BY FORWARDERS:  (YES/NO)
+
+            </td>
+            <td rowspan="3" colspan="3">
+                <input type="radio"> yes
+                <input type="radio"> no
+            </td>
+        </tr>
+        <tr>
+            <td>国家Country:</td>
+            <td colspan="4"><input type="text" name="cnee_country"></td>
+        </tr>
+        <tr>
+            <td>联系人电话</td>
+            <td colspan="2"><input type="text" name="cnee_tel"></td>
+            <td>联系人</td>
+            <td><input type="text" name="cnee_contact"></td>
+        </tr>
+
+        <!--通知人名称及地址/Consignee's Name And Address-->
+        <tr>
+            <td>通知人名称及地址/Notify Party's Name And Address</td>
+            <td colspan="4">Same as consignee? <br>
+                <input type="radio"> Yes
+                <input type="radio"> No
+            </td>
+            <td colspan="4">派送地址/FINAL DELIVERY ADDRESS</td>
+        </tr>
+        <tr>
+            <td>公司名称 Company Name：</td>
+            <td colspan="4"><input type="text" name="cnee_name"></td>
+            <td>公司名称 Company Name：</td>
+            <td colspan="3"><input type="text" name="cnee_name"></td>
+        </tr>
+        <tr>
+            <td>Street Address:</td>
+            <td colspan="4"><input type="text" name="cnee_address1"></td>
+            <td>Street Address:</td>
+            <td colspan="3"><input type="text" name="cnee_address1"></td>
+        </tr>
+        <tr>
+            <td>Other Address</td>
+            <td colspan="4"><input type="text" name="cnee_address2"></td>
+            <td>Other Address</td>
+            <td colspan="3"><input type="text" name="cnee_address2"></td>
+        </tr>
+        <tr>
+            <td>邮编Zip</td>
+            <td colspan="4"><input type="text" name="cnee_zip"></td>
+            <td>邮编Zip</td>
+            <td colspan="3"><input type="text" name="cnee_zip"></td>
+        </tr>
+        <tr>
+            <td>城市City:</td>
+            <td colspan="4"><input type="text" name="cnee_city"></td>
+            <td>城市City:</td>
+            <td colspan="3"><input type="text" name="cnee_city"></td>
+        </tr>
+        <tr>
+            <td>国家Country:</td>
+            <td colspan="4"><input type="text" name="cnee_country"></td>
+            <td>国家Country:</td>
+            <td colspan="3"><input type="text" name="cnee_country"></td>
+        </tr>
+        <tr>
+            <td>联系人电话</td>
+            <td colspan="2"><input type="text" name="cnee_tel"></td>
+            <td>联系人</td>
+            <td><input type="text" name="cnee_contact"></td>
+            <td>联系人电话</td>
+            <td colspan="1"><input type="text" name="cnee_tel"></td>
+            <td>联系人</td>
+            <td><input type="text" name="cnee_contact"></td>
+        </tr>
+
+
+        <!--收发地，目的地-->
+        <tr>
+            <td>收货地 Place of Receipt</td>
+            <td colspan="1"><input type="text" name="receipt_place"></td>
+            <td>始发站 Air of Departure</td>
+            <td colspan="2"><input type="text" name="departure_place"></td>
+            <td colspan="4">声明价值 Declared Value</td>
+        </tr>
+        <tr>
+            <td>到达站 Airport of Destination</td>
+            <td colspan="1"><input type="text" name="destination_place"></td>
+            <td>最后目的地 Final Destination</td>
+            <td colspan="2"><input type="text" name="final_place"></td>
+            <td colspan="1">供运输用 For Carriage</td>
+            <td colspan="3">$8888888</td>
+        </tr>
+
+        <!--货物信息-->
+        <tr>
+            <td>唛头 Mark</td>
+            <td>件数 </td>
+            <td>包装类型</td>
+            <td>毛重(G.W. KG)</td>
+            <td>体积</td>
+            <td colspan="4">货物品名 Description of Goods.</td>
+        </tr>
+        <tr>
+            <td><input type="text"></td>
+            <td><input type="text"></td>
+            <td><input type="text"></td>
+            <td><input type="text"></td>
+            <td><input type="text"></td>
+            <td colspan="1">中文品名 Chinese Name</td>
+            <td colspan="3"><input type="text"></td>
+        </tr>
+        <tr>
+            <td><input type="text"></td>
+            <td><input type="text"></td>
+            <td><input type="text"></td>
+            <td><input type="text"></td>
+            <td><input type="text"></td>
+            <td colspan="1">英文品名 Chinese Name</td>
+            <td colspan="3"><input type="text"></td>
+        </tr>
+        <tr>
+            <td><input type="text"></td>
+            <td><input type="text"></td>
+            <td><input type="text"></td>
+            <td><input type="text"></td>
+            <td><input type="text"></td>
+            <td colspan="1">海关编码 HS Code</td>
+            <td colspan="3"><input type="text"></td>
+        </tr>
+        <tr>
+            <td><input type="text"></td>
+            <td><input type="text"></td>
+            <td><input type="text"></td>
+            <td><input type="text"></td>
+            <td><input type="text"></td>
+            <td colspan="1">是否含有锂电池</td>
+            <td colspan="3"><input type="text"></td>
+        </tr>
+        <tr>
+            <td><input type="text"></td>
+            <td><input type="text"></td>
+            <td><input type="text"></td>
+            <td><input type="text"></td>
+            <td><input type="text"></td>
+            <td colspan="1">是否含木质包装/液体/磁性</td>
+            <td colspan="3"><input type="text"></td>
+        </tr>
+        <tr>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+        </tr>
+
+
+
+
+    </table>
+</div>
+
+
+</body>
+</html>
